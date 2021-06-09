@@ -22,7 +22,6 @@ const reducer = (state = initialState, action) => {
                 metascore: movie.metascore,
                 description: movie.description
             }
-            console.log(newMovie)
             return {
                 movies: [...state.movies, newMovie]
             }
