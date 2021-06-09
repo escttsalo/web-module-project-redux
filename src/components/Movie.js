@@ -1,13 +1,32 @@
 import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { deleteMovie } from './../actions/movieActions' 
+import { addFavorites } from '../actions/favoriteActions'
 
 const Movie = (props) => {
     const { id } = useParams();
     const { push } = useHistory();
 
-    const movies = [];
+    const movies = props.movies;
     const movie = movies.find(movie=>movie.id===Number(id));
+
+    const favorites = props.favorites;
+    const displayFavorites = props.displayFavorites;
+
+    const favoriteHandler = () => {
+        if (displayFavorites){
+            if (!favorites.find(item => item.id === movie.id)){
+                props.addFavorites(movie)
+            }
+        }
+    }
     
+    const deleteHandler = () => {
+        props.deleteMovie(movie.id)
+        push('/movies')
+    }
+
     return(<div className="modal-page col">
         <div className="modal-dialog">
             <div className="modal-content">
@@ -37,8 +56,8 @@ const Movie = (props) => {
                         </section>
                         
                         <section>
-                            <span className="m-2 btn btn-dark">Favorite</span>
-                            <span className="delete"><input type="button" className="m-2 btn btn-danger" value="Delete"/></span>
+                            <span className="m-2 btn btn-dark" onClick={favoriteHandler}>Favorite</span>
+                            <span className="delete"><input type="button" className="m-2 btn btn-danger" value="Delete" onClick={deleteHandler}/></span>
                         </section>
                     </div>
                 </div>
@@ -46,5 +65,12 @@ const Movie = (props) => {
         </div>
     </div>);
 }
+const mapStateToProps = state => {
+    return({
+        movies: state.movies.movies,
+        favorites: state.favorites.favorites,
+        displayFavorites: state.favorites.displayFavorites
+    })
+}
 
-export default Movie;
+export default connect(mapStateToProps, { deleteMovie, addFavorites })(Movie);

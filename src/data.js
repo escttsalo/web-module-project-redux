@@ -46,6 +46,14 @@ let movies = [
       metascore: 89,
       genre: "Drama",
       description: "A successful lawman's plans to retire anonymously in Tombstone, Arizona are disrupted by the kind of outlaws he was famous for eliminating."
+    },
+    {
+      id: 6,
+      title: "Demon Castle Dracula X: Reincarnation of Blood",
+      director: "Toru Hagihara",
+      metascore: 100,
+      genre: "Horror",
+      description: "In it's 10th installment in the series, we see the protagonist 'Richter Belmont' as he goes to save his lover 'Annette Renard', who was abducted by Count Dracula.",
     }
   ];
 
